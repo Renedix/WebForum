@@ -1,0 +1,508 @@
+CREATE DATABASE  IF NOT EXISTS `web_forum` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `web_forum`;
+-- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
+--
+-- Host: localhost    Database: web_forum
+-- ------------------------------------------------------
+-- Server version	5.5.28
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `category`
+--
+
+DROP TABLE IF EXISTS `category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_user_id` int(11) DEFAULT NULL,
+  `content` text,
+  `parent_category_id` int(11) DEFAULT NULL,
+  `super_category` varchar(1) DEFAULT 'T',
+  `delete_flag` varchar(1) DEFAULT 'F',
+  `delete_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `category`
+--
+
+LOCK TABLES `category` WRITE;
+/*!40000 ALTER TABLE `category` DISABLE KEYS */;
+INSERT INTO `category` VALUES (7,7,'Parent Category Content 1',NULL,'T','F',NULL),(27,7,'Topic Container',7,'F','F',NULL),(28,7,'a',7,'T','T',NULL),(29,7,'topic container2',28,'F','F',NULL),(30,7,'b',7,'T','T',NULL),(31,7,'c',7,'F','T',NULL),(32,7,'e',30,'F','F',NULL),(33,7,'asda',7,'T','T',NULL),(34,7,'qwdqw',7,'F','T',NULL),(35,7,'qwdqwas',7,'F','T',NULL),(36,7,'emilys category',7,'F','T',NULL);
+/*!40000 ALTER TABLE `category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `category_children`
+--
+
+DROP TABLE IF EXISTS `category_children`;
+/*!50001 DROP VIEW IF EXISTS `category_children`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `category_children` (
+  `id` int(11),
+  `create_user_id` int(11),
+  `content` text,
+  `parent_category_id` int(11),
+  `super_category` varchar(1),
+  `user_id` int(11),
+  `username` varchar(100)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `category_with_parent`
+--
+
+DROP TABLE IF EXISTS `category_with_parent`;
+/*!50001 DROP VIEW IF EXISTS `category_with_parent`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `category_with_parent` (
+  `id` int(11),
+  `content` text,
+  `create_user_id` int(11),
+  `super_category` varchar(1),
+  `parent_id` int(11),
+  `parent_content` text,
+  `create_parent_user_id` int(11),
+  `parent_super_category` varchar(1)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `post`
+--
+
+DROP TABLE IF EXISTS `post`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `post` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_user_id` int(11) DEFAULT NULL,
+  `thread_id` int(11) DEFAULT NULL,
+  `content` text,
+  `create_date` datetime DEFAULT NULL,
+  `delete_flag` varchar(1) DEFAULT 'F',
+  `delete_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `post`
+--
+
+LOCK TABLES `post` WRITE;
+/*!40000 ALTER TABLE `post` DISABLE KEYS */;
+INSERT INTO `post` VALUES (38,7,18,' A new post','2012-11-24 14:02:38','F',NULL),(39,7,18,' A new post','2012-11-24 14:02:48','F',NULL),(40,7,18,' aksdbkqwdqw ','2012-11-24 14:03:12','F',NULL),(41,7,18,' aksdbkqwdqw ','2012-11-24 14:03:17','F',NULL),(42,7,18,' Post?','2012-11-25 22:09:51','F',NULL),(43,7,18,'dqww qwd qwdasdqw','2012-11-25 22:30:54','F',NULL),(44,7,18,'dqww qwd qwdasdqw','2012-11-25 22:31:26','F',NULL),(45,7,18,' oqjw wq qwdqqwdjwq','2012-11-25 22:36:12','F',NULL),(46,7,18,' asdqw','2012-11-25 22:37:08','F',NULL),(47,7,18,' another post','2012-11-25 22:50:22','F',NULL),(48,7,18,' asdmqw','2012-11-25 22:50:39','F',NULL),(49,7,18,' aaa','2012-11-25 22:50:56','F',NULL),(50,7,18,' asdqwdqw','2012-11-25 22:51:50','F',NULL),(51,7,18,' asdqdqw','2012-11-25 22:52:57','F',NULL),(52,7,18,' qwv qwvqwdqw','2012-11-25 22:53:03','F',NULL),(53,7,18,' zdas dqwdqw','2012-11-25 22:53:08','F',NULL),(54,7,18,' seven','2012-11-25 22:53:21','F',NULL),(55,7,18,' eight','2012-11-25 22:53:27','F',NULL),(56,7,18,' nine','2012-11-25 22:53:31','F',NULL),(57,7,18,' ten','2012-11-25 22:53:35','F',NULL),(58,7,18,' eleven','2012-11-25 22:53:41','F',NULL),(59,7,18,' twelve!','2012-11-25 22:58:00','F',NULL),(60,7,18,' another','2012-11-25 23:01:16','F',NULL),(61,7,20,' New Post!','2012-11-26 22:34:35','F',NULL),(62,7,19,' asldjwql','2012-11-26 22:36:48','F',NULL),(63,7,21,' adqwdqw','2012-11-26 22:37:09','F',NULL),(64,7,18,' sss','2012-11-26 22:37:26','F',NULL),(65,7,22,'a new post','2012-11-28 13:25:34','F',NULL),(66,7,21,' ascasacas','2012-11-28 13:27:11','F',NULL),(67,7,18,' kk','2012-11-28 22:47:02','F',NULL),(68,7,23,' qwd','2012-11-28 22:54:19','F',NULL),(69,7,18,' qwdqw','2012-11-28 22:59:50','F',NULL),(70,7,18,' new post','2012-11-28 23:02:21','F',NULL),(71,7,22,' test','2012-12-30 19:47:03','F',NULL);
+/*!40000 ALTER TABLE `post` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `post_view`
+--
+
+DROP TABLE IF EXISTS `post_view`;
+/*!50001 DROP VIEW IF EXISTS `post_view`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `post_view` (
+  `id` int(11),
+  `create_user_id` int(11),
+  `thread_id` int(11),
+  `content` text,
+  `create_date` datetime,
+  `username` varchar(100),
+  `thumbnail_uri` varchar(100)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `thread`
+--
+
+DROP TABLE IF EXISTS `thread`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `thread` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_user_id` int(11) DEFAULT NULL,
+  `topic_id` int(11) DEFAULT NULL,
+  `content` text,
+  `views` int(11) DEFAULT NULL,
+  `delete_flag` varchar(1) DEFAULT 'F',
+  `delete_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `thread`
+--
+
+LOCK TABLES `thread` WRITE;
+/*!40000 ALTER TABLE `thread` DISABLE KEYS */;
+INSERT INTO `thread` VALUES (18,7,13,'Post container',0,'F',NULL),(19,7,13,'Another Post',0,'F',NULL),(20,7,13,'Another post 2',0,'F',NULL),(21,7,14,'Post container',0,'F',NULL),(22,7,15,'a new thread',0,'F',NULL),(23,7,17,'qwd',0,'F',NULL),(24,7,18,'new topic',0,'T',NULL);
+/*!40000 ALTER TABLE `thread` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `thread_counts`
+--
+
+DROP TABLE IF EXISTS `thread_counts`;
+/*!50001 DROP VIEW IF EXISTS `thread_counts`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `thread_counts` (
+  `thread_id` int(11),
+  `posts` bigint(21),
+  `views` int(11)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `thread_header_view`
+--
+
+DROP TABLE IF EXISTS `thread_header_view`;
+/*!50001 DROP VIEW IF EXISTS `thread_header_view`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `thread_header_view` (
+  `topic_id` int(11),
+  `thread_id` int(11),
+  `username` varchar(100),
+  `create_user_id` int(11),
+  `content` text,
+  `POSTS` bigint(21),
+  `VIEWS` decimal(32,0)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `topic`
+--
+
+DROP TABLE IF EXISTS `topic`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `topic` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_user_id` int(11) DEFAULT NULL,
+  `content` text,
+  `category_id` int(11) DEFAULT NULL,
+  `delete_flag` varchar(1) DEFAULT 'F',
+  `delete_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `topic`
+--
+
+LOCK TABLES `topic` WRITE;
+/*!40000 ALTER TABLE `topic` DISABLE KEYS */;
+INSERT INTO `topic` VALUES (13,7,'Thread container',27,'F',NULL),(14,7,'Thread container 2',27,'F',NULL),(15,7,'a new topic',29,'F',NULL),(16,7,'gerw',31,'F',NULL),(17,7,'asd',32,'F',NULL),(18,7,'emilys topc',27,'F',NULL),(19,7,'asd',34,'F',NULL),(20,7,'emilys topic',36,'F',NULL),(21,7,'emilys topic wqe',36,'F',NULL);
+/*!40000 ALTER TABLE `topic` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `topic_category_view`
+--
+
+DROP TABLE IF EXISTS `topic_category_view`;
+/*!50001 DROP VIEW IF EXISTS `topic_category_view`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `topic_category_view` (
+  `category_id` int(11),
+  `topic_id` int(11),
+  `create_user_id` int(11),
+  `username` varchar(100),
+  `content` text,
+  `threads` bigint(21),
+  `views` decimal(32,0),
+  `posts` int(1)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `topic_counts`
+--
+
+DROP TABLE IF EXISTS `topic_counts`;
+/*!50001 DROP VIEW IF EXISTS `topic_counts`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `topic_counts` (
+  `threads` bigint(21),
+  `views` decimal(32,0),
+  `topic_id` int(11)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `topic_header_view`
+--
+
+DROP TABLE IF EXISTS `topic_header_view`;
+/*!50001 DROP VIEW IF EXISTS `topic_header_view`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `topic_header_view` (
+  `topic_id` int(11),
+  `create_user_id` int(11),
+  `username` varchar(100),
+  `content` text,
+  `threads` bigint(21),
+  `views` decimal(32,0),
+  `posts` int(1)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `topic_threads_view`
+--
+
+DROP TABLE IF EXISTS `topic_threads_view`;
+/*!50001 DROP VIEW IF EXISTS `topic_threads_view`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `topic_threads_view` (
+  `thread_id` int(11),
+  `username` varchar(100),
+  `create_user_id` int(11),
+  `content` text,
+  `posts` bigint(21),
+  `views` int(11),
+  `topic_id` int(11)
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) DEFAULT NULL,
+  `thumbnail_uri` varchar(100) DEFAULT NULL,
+  `create_date` date DEFAULT NULL,
+  `delete_flag` varchar(1) DEFAULT 'F',
+  `delete_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (7,'Renedix','/img/defaultavatar.bmp','2012-11-12','F',NULL),(8,'Gopheer','/img/defaultavatar.bmp','2012-11-12','F',NULL),(9,'Lokeakala','/img/defaultavatar.bmp','2012-11-12','F',NULL),(10,'Niteshade','/img/defaultavatar.bmp','2012-11-12','F',NULL);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Final view structure for view `category_children`
+--
+
+/*!50001 DROP TABLE IF EXISTS `category_children`*/;
+/*!50001 DROP VIEW IF EXISTS `category_children`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `category_children` AS select `c1`.`id` AS `id`,`c1`.`create_user_id` AS `create_user_id`,`c1`.`content` AS `content`,`c1`.`parent_category_id` AS `parent_category_id`,`c1`.`super_category` AS `super_category`,`u`.`id` AS `user_id`,`u`.`username` AS `username` from ((`category` `c2` join `category` `c1` on((`c1`.`parent_category_id` = `c2`.`id`))) join `user` `u` on((`u`.`id` = `c1`.`create_user_id`))) where ((ifnull(`c2`.`delete_flag`,'F') = 'F') and (ifnull(`c1`.`delete_flag`,'F') = 'F')) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `category_with_parent`
+--
+
+/*!50001 DROP TABLE IF EXISTS `category_with_parent`*/;
+/*!50001 DROP VIEW IF EXISTS `category_with_parent`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `category_with_parent` AS select `c1`.`id` AS `id`,`c1`.`content` AS `content`,`c1`.`create_user_id` AS `create_user_id`,`c1`.`super_category` AS `super_category`,`c2`.`id` AS `parent_id`,`c2`.`content` AS `parent_content`,`c2`.`create_user_id` AS `create_parent_user_id`,`c2`.`super_category` AS `parent_super_category` from (`category` `c1` left join `category` `c2` on((`c1`.`parent_category_id` = `c2`.`id`))) where ((ifnull(`c1`.`delete_flag`,'F') = 'F') and (ifnull(`c2`.`delete_flag`,'F') = 'F')) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `post_view`
+--
+
+/*!50001 DROP TABLE IF EXISTS `post_view`*/;
+/*!50001 DROP VIEW IF EXISTS `post_view`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `post_view` AS select `p`.`id` AS `id`,`p`.`create_user_id` AS `create_user_id`,`p`.`thread_id` AS `thread_id`,`p`.`content` AS `content`,`p`.`create_date` AS `create_date`,`u`.`username` AS `username`,`u`.`thumbnail_uri` AS `thumbnail_uri` from (`post` `p` left join `user` `u` on((`u`.`id` = `p`.`create_user_id`))) where ((ifnull(`u`.`delete_flag`,'F') = 'F') and (ifnull(`p`.`delete_flag`,'F') = 'F')) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `thread_counts`
+--
+
+/*!50001 DROP TABLE IF EXISTS `thread_counts`*/;
+/*!50001 DROP VIEW IF EXISTS `thread_counts`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `thread_counts` AS select `th`.`id` AS `thread_id`,count(`p`.`id`) AS `posts`,`th`.`views` AS `views` from (`thread` `th` left join `post` `p` on((`th`.`id` = `p`.`thread_id`))) where ((ifnull(`th`.`delete_flag`,'F') = 'F') and (ifnull(`p`.`delete_flag`,'F') = 'F')) group by `th`.`id` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `thread_header_view`
+--
+
+/*!50001 DROP TABLE IF EXISTS `thread_header_view`*/;
+/*!50001 DROP VIEW IF EXISTS `thread_header_view`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `thread_header_view` AS select `th`.`topic_id` AS `topic_id`,`th`.`id` AS `thread_id`,`u`.`username` AS `username`,`u`.`id` AS `create_user_id`,`th`.`content` AS `content`,count(1) AS `POSTS`,sum(`th`.`views`) AS `VIEWS` from ((`thread` `th` left join `post` `p` on((`p`.`thread_id` = `th`.`id`))) join `user` `u` on((`u`.`id` = `th`.`create_user_id`))) where ((ifnull(`th`.`delete_flag`,'F') = 'F') and (ifnull(`p`.`delete_flag`,'F') = 'F') and (ifnull(`u`.`delete_flag`,'F') = 'F')) group by `th`.`id`,`th`.`topic_id`,`u`.`username`,`u`.`id`,`th`.`content` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `topic_category_view`
+--
+
+/*!50001 DROP TABLE IF EXISTS `topic_category_view`*/;
+/*!50001 DROP VIEW IF EXISTS `topic_category_view`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `topic_category_view` AS select `c`.`id` AS `category_id`,`thv`.`topic_id` AS `topic_id`,`thv`.`create_user_id` AS `create_user_id`,`thv`.`username` AS `username`,`thv`.`content` AS `content`,`thv`.`threads` AS `threads`,`thv`.`views` AS `views`,`thv`.`posts` AS `posts` from ((`category` `c` join `topic` `t`) join `topic_header_view` `thv`) where ((`c`.`id` = `t`.`category_id`) and (`thv`.`topic_id` = `t`.`id`) and (ifnull(`c`.`delete_flag`,'F') = 'F') and (ifnull(`t`.`delete_flag`,'F') = 'F')) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `topic_counts`
+--
+
+/*!50001 DROP TABLE IF EXISTS `topic_counts`*/;
+/*!50001 DROP VIEW IF EXISTS `topic_counts`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `topic_counts` AS select count(1) AS `threads`,sum(`th`.`views`) AS `views`,`th`.`topic_id` AS `topic_id` from `thread` `th` where (ifnull(`th`.`delete_flag`,'F') = 'F') group by `th`.`topic_id` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `topic_header_view`
+--
+
+/*!50001 DROP TABLE IF EXISTS `topic_header_view`*/;
+/*!50001 DROP VIEW IF EXISTS `topic_header_view`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `topic_header_view` AS select `t`.`id` AS `topic_id`,`t`.`create_user_id` AS `create_user_id`,`u`.`username` AS `username`,`t`.`content` AS `content`,ifnull(`cnt`.`threads`,0) AS `threads`,ifnull(`cnt`.`views`,0) AS `views`,0 AS `posts` from ((`topic` `t` left join `topic_counts` `cnt` on((`t`.`id` = `cnt`.`topic_id`))) left join `user` `u` on((`u`.`id` = `t`.`create_user_id`))) where ((ifnull(`t`.`delete_flag`,'F') = 'F') and (ifnull(`u`.`delete_flag`,'F') = 'F')) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `topic_threads_view`
+--
+
+/*!50001 DROP TABLE IF EXISTS `topic_threads_view`*/;
+/*!50001 DROP VIEW IF EXISTS `topic_threads_view`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `topic_threads_view` AS select `th`.`id` AS `thread_id`,`u`.`username` AS `username`,`u`.`id` AS `create_user_id`,`th`.`content` AS `content`,`tc`.`posts` AS `posts`,`th`.`views` AS `views`,`top`.`id` AS `topic_id` from (((`thread` `th` join `topic` `top`) join `user` `u`) join `thread_counts` `tc`) where ((`top`.`id` = `th`.`topic_id`) and (`u`.`id` = `th`.`create_user_id`) and (`tc`.`thread_id` = `th`.`id`) and (ifnull(`th`.`delete_flag`,'F') = 'F') and (ifnull(`top`.`delete_flag`,'F') = 'F') and (ifnull(`u`.`delete_flag`,'F') = 'F')) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2012-12-30 20:10:25
